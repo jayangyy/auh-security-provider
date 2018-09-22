@@ -1,0 +1,53 @@
+# 数据源配置
+spring:
+  datasource:
+    druid:
+      jdbcUrl: jdbc:mysql://localhost:13306/zentao?useUnicode=true&characterEncoding=utf-8
+      username: jayang
+      password: "jayang880706"
+      driver-class-name: com.mysql.jdbc.Driver
+#      max-active: 20
+#      initial-size: 1
+#      max-wait: 60000
+#      min-idle: 1
+#      time-between-eviction-runs-millis: 60000
+#      min-evictable-idle-time-millis: 300000
+#      validation-query: select 'x'
+#      test-while-idle: true
+#      test-on-borrow: false
+#      test-on-return: false
+#      pool-prepared-statements: true
+#      max-open-prepared-statements: 20
+#      filters: stat, wall
+      # 监控配置
+      web-stat-filter:
+        url-pattern: /*
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+      stat-view-servlet:
+        url-pattern: /druid/*
+        reset-enable: false
+        login-username: sysadmin
+        login-password: "000000"
+  freemarker:
+        request-context-attribute: request
+security:
+  ignoring: "/static/**/*, /druid/**/**, /login.ftl,/login.ftl1, /webjars/**/*, /images/**/*,/oauth/**,/oauth/authorize"
+  intercept: "/**/*.jsp, /**/*.html, /**/*.ftl"
+  successUrl: "/index.ftl"
+  logoutSuccessUrl: "/login.ftl"
+  oauth2:
+    client:
+      client-id: client
+      client-secret: secret
+      scope: app     
+      auto-approve-scopes: '.*'
+# mybatis 配置
+mybatis:
+  type-aliases-package: com.kcframework.auhsecurityprovider.domains;
+  mapper-locations: com.kcframework.auhsecurityprovider.mappers
+# mapper 配置
+mapper:
+  identity: select uuid()
+  before: true
+logging:
+  file: logs/security-demo.log
