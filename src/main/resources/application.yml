@@ -39,8 +39,13 @@ security:
     client:
       client-id: client
       client-secret: secret
+      userAuthorizationUri: http://localhost:8080/oauth/authorize
+      access-token-uri: http://localhost:8080/oauth/token
       scope: app     
       auto-approve-scopes: '.*'
+    resource:
+      userInfoUri: http://localhost:8080/testRes/sayHello
+    basic: false
 # mybatis 配置
 mybatis:
   type-aliases-package: com.kcframework.auhsecurityprovider.domains;
