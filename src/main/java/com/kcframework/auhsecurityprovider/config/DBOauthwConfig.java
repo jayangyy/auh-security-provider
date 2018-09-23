@@ -23,6 +23,7 @@ import org.springframework.security.oauth2.provider.client.JdbcClientDetailsServ
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -64,7 +65,7 @@ public class DBOauthwConfig extends AuthorizationServerConfigurerAdapter {
         tokenServices.setClientDetailsService(endpoints.getClientDetailsService());
         tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
         tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30)); // 30天
-        endpoints.tokenServices(tokenServices);
+        endpoints.tokenServices(tokenServices).accessTokenConverter(jwtAccessTokenConverter());
     }
 
     @Override
@@ -72,6 +73,14 @@ public class DBOauthwConfig extends AuthorizationServerConfigurerAdapter {
         //        //添加客户端信息
         clients.withClientDetails(clientDetails());//
 
+    }
+
+    //使用同一个密钥来编码 JWT 中的  OAuth2 令牌
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setSigningKey("123");
+        return converter;
     }
 
     @Override
@@ -86,7 +95,8 @@ public class DBOauthwConfig extends AuthorizationServerConfigurerAdapter {
 
     /**
      * 跨域, 开发环境使用 vue-cli 代理，正式用nginx
-     * @return 
+     *
+     * @return
      */
     @Bean
     public FilterRegistrationBean corsFilter() {
