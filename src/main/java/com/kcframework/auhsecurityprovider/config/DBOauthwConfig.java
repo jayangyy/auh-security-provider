@@ -12,6 +12,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -24,6 +25,7 @@ import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -37,6 +39,8 @@ import org.springframework.web.filter.CorsFilter;
 public class DBOauthwConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
+    private RedisConnectionFactory redisConnectionFactory;
+    @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
     private DataSource dataSource;
@@ -48,6 +52,16 @@ public class DBOauthwConfig extends AuthorizationServerConfigurerAdapter {
         return new JdbcTokenStore(dataSource);
     }
 
+    /**
+     * redis存储方式
+     *
+     * @return
+     */
+    @Bean("redisTokenStore")
+    public TokenStore redisTokenStore() {
+        return new RedisTokenStore(redisConnectionFactory);
+    }
+
     @Bean // 声明 ClientDetails实现
     public ClientDetailsService clientDetails() {
         return new JdbcClientDetailsService(dataSource);
@@ -56,16 +70,18 @@ public class DBOauthwConfig extends AuthorizationServerConfigurerAdapter {
     @Override // 配置框架应用上述实现
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(authenticationManager);
-        endpoints.tokenStore(tokenStore);
-
+        endpoints.tokenStore(redisTokenStore());
+        //endpoints.tokenStore(tokenStore);
+        endpoints.accessTokenConverter(jwtAccessTokenConverter());
         // 配置TokenServices参数
         DefaultTokenServices tokenServices = new DefaultTokenServices();
         tokenServices.setTokenStore(endpoints.getTokenStore());
-        tokenServices.setSupportRefreshToken(false);
+        tokenServices.setSupportRefreshToken(true);
         tokenServices.setClientDetailsService(endpoints.getClientDetailsService());
         tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
         tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30)); // 30天
-        endpoints.tokenServices(tokenServices).accessTokenConverter(jwtAccessTokenConverter());
+        tokenServices.setRefreshTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(1));
+        endpoints.tokenServices(tokenServices);
     }
 
     @Override

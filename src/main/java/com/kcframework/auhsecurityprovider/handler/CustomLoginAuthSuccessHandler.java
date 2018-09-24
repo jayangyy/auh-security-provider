@@ -28,7 +28,7 @@ public class CustomLoginAuthSuccessHandler implements AuthenticationSuccessHandl
 
         Map<String, String> data = new HashMap<>();
 //        data.put("index", request.getContextPath() + authSuccessUrl);
-        if (request.getPart("redirect_uri") != null) {
+        if (request.getParameter("redirect_uri") != null) {
             data.put("index", request.getContextPath() + request.getPart("redirect_uri").toString());
         } else {
             data.put("index", request.getContextPath() + authSuccessUrl);

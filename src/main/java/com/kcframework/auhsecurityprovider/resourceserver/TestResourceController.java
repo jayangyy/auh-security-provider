@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.kcframework.auhsecurity.provider.resourceserver;
+package com.kcframework.auhsecurityprovider.resourceserver;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @author jayan
  */
 @RestController
-@RequestMapping("/testRes")
 public class TestResourceController {
 
     @RequestMapping("/sayHello/{name}")
