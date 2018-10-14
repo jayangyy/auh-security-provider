@@ -41,4 +41,19 @@ public class HomeController extends BaseController {
      //   request.setAttribute("menuList", baseMenuService.getResourceByUserId(baseUser.getUsername()));
         return new ModelAndView("/login.ftl");
     }
+     /**
+     * 获取用户信息
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping("/index.ftl1")
+    public ModelAndView ftl1(HttpServletRequest request) {
+
+       // EduUser baseUser = getCurrentUser();
+       // request.setAttribute("userInfo", baseUser);
+    //    request.setAttribute("roleList", baseRoleService.selectRolesByUserId(baseUser.getUsername()));
+     //   request.setAttribute("menuList", baseMenuService.getResourceByUserId(baseUser.getUsername()));
+        return new ModelAndView("/detail.html");
+    }
 }

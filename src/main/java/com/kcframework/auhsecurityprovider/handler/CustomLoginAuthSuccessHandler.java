@@ -21,7 +21,7 @@ import java.util.Map;
 public class CustomLoginAuthSuccessHandler implements AuthenticationSuccessHandler {
 
     private RequestCache requestCache = new HttpSessionRequestCache();
-    private String authSuccessUrl = "index.html";
+    private String authSuccessUrl = "detail.html";
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {

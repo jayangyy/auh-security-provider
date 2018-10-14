@@ -23,20 +23,20 @@ public class BaseUserController extends BaseController {
     @Autowired
     protected BaseResourcesService baseMenuService;
 
-    /**
-     * 获取用户信息
-     *
-     * @param request
-     * @return
-     */
-    @RequestMapping("/index.ftl1")
-    public ModelAndView select(HttpServletRequest request) {
-
-        //EduUser baseUser = getCurrentUser();
-       // request.setAttribute("userInfo", baseUser);
-       // /request.setAttribute("roleList", baseRoleService.selectRolesByUserId(baseUser.getUsername()));
-        //request.setAttribute("menuList", baseMenuService.getResourceByUserId(baseUser.getUsername()));
-        return new ModelAndView("index.ftl");
-    }
+//    /**
+//     * 获取用户信息
+//     *
+//     * @param request
+//     * @return
+//     */
+//    @RequestMapping("/index.ftl1")
+//    public ModelAndView select(HttpServletRequest request) {
+//
+//        //EduUser baseUser = getCurrentUser();
+//       // request.setAttribute("userInfo", baseUser);
+//       // /request.setAttribute("roleList", baseRoleService.selectRolesByUserId(baseUser.getUsername()));
+//        //request.setAttribute("menuList", baseMenuService.getResourceByUserId(baseUser.getUsername()));
+//        return new ModelAndView("index.ftl");
+//    }
 
 }
