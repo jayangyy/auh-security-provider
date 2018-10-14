@@ -6,9 +6,7 @@
 package com.kcframework.auhsecurityprovider.controller;
 
 import java.security.Principal;
-import org.apache.ibatis.annotations.Result;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import javax.annotation.Resource;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,27 +21,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
-    @Autowired
-    @Qualifier("redisTokenStore")
-    private TokenStore tokenStore;
-
-    @GetMapping("/user")
-    public Principal user(Principal user) {
-        return user;
-    }
-
-    @RequestMapping("/oauth/remove_token")
-    public void removeToken(@RequestParam("token") String token) {
-
-        if (token != null) {
-            OAuth2AccessToken accessToken = tokenStore.readAccessToken(token);
-            tokenStore.removeAccessToken(accessToken);
-        } else {
-            //return new Result(ResultEnum.TOKEN_MISS);
-        }
-
-        //return Result.returnOk();
-    }
+////    @Autowired
+////    @Qualifier("redisTokenStore")
+//    @Resource(name = "redisTokenStore")
+//    private TokenStore tokenStore;
+//
+//    @GetMapping("/user")
+//    public Principal user(Principal user) {
+//        return user;
+//    }
+//
+//    @RequestMapping("/oauth/remove_token")
+//    public void removeToken(@RequestParam("token") String token) {
+//
+//        if (token != null) {
+//            OAuth2AccessToken accessToken = tokenStore.readAccessToken(token);
+//            tokenStore.removeAccessToken(accessToken);
+//        } else {
+//            //return new Result(ResultEnum.TOKEN_MISS);
+//        }
+//
+//        //return Result.returnOk();
+//    }
 
 }
-

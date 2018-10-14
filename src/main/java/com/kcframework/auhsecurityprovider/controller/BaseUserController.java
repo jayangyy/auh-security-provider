@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by fp295 on 2018/4/7.
  */
-@Controller
+@RestController
 public class BaseUserController extends BaseController {
 
     @Autowired
@@ -28,14 +29,14 @@ public class BaseUserController extends BaseController {
      * @param request
      * @return
      */
-    @RequestMapping("/index.ftl")
+    @RequestMapping("/index.ftl1")
     public ModelAndView select(HttpServletRequest request) {
 
         //EduUser baseUser = getCurrentUser();
        // request.setAttribute("userInfo", baseUser);
        // /request.setAttribute("roleList", baseRoleService.selectRolesByUserId(baseUser.getUsername()));
         //request.setAttribute("menuList", baseMenuService.getResourceByUserId(baseUser.getUsername()));
-        return new ModelAndView("login.ftl");
+        return new ModelAndView("index.ftl");
     }
 
 }

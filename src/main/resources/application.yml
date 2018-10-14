@@ -31,9 +31,9 @@ spring:
   freemarker:
         request-context-attribute: request
 security:
-  ignoring: "/static/**/*, /druid/**/**, /login.ftl,/login.ftl1, /webjars/**/*, /images/**/*,/oauth/**,/oauth/authorize"
+  ignoring: "/static/**/*, /druid/**/**, /login.ftl,/login.ftl1, /webjars/**/*, /images/**/*,/oauth/**,/oauth/authorize,/**/*.ftl1"
   intercept: "/**/*.jsp, /**/*.html, /**/*.ftl"
-  successUrl: "/index.ftl"
+  successUrl: "/index.ftl1"
   logoutSuccessUrl: "/login.ftl"
   oauth2:
     client:

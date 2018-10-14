@@ -34,8 +34,8 @@ import org.springframework.web.filter.CorsFilter;
  *
  * @author Jayang
  */
-@Configuration
-@EnableAuthorizationServer
+//@Configuration
+//@EnableAuthorizationServer
 public class DBOauthwConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
@@ -44,8 +44,8 @@ public class DBOauthwConfig extends AuthorizationServerConfigurerAdapter {
     private AuthenticationManager authenticationManager;
     @Autowired
     private DataSource dataSource;
-    @Autowired
-    private TokenStore tokenStore;
+//    @Autowired
+//    private TokenStore tokenStore;
 
     @Bean // 声明TokenStore实现
     public TokenStore tokenStore() {
