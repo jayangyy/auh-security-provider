@@ -1,5 +1,9 @@
 # 数据源配置
+server:
+  port: 8040
 spring:
+  application:
+    name: kc-auth-security-provider  
   datasource:
     druid:
       jdbcUrl: jdbc:mysql://localhost:13306/zentao?useUnicode=true&characterEncoding=utf-8
@@ -56,3 +60,7 @@ mapper:
   before: true
 logging:
   file: logs/security-demo.log
+eureka:
+  client:
+     serviceUrl:
+         defaultZone: http://localhost:8030/eureka/
